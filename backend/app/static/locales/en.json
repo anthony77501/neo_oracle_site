@@ -1,0 +1,21 @@
+{
+  "title": "Corn ear detection (YOLO)",
+  "detector_loaded": "Detector: loaded",
+  "detector_absent": "Detector: missing",
+
+  "drop_hint": "Drag & drop an image here, or",
+  "choose_file": "choose a file",
+  "formats": "JPEG / PNG / WebP — max 30 MB",
+
+  "threshold": "Detection threshold",
+  "analyze": "Analyze",
+  "reset": "Reset",
+
+  "result": "Result",
+  "none_found": "No ear detected at current threshold.",
+
+  "det": "det",
+  "ripe": "ripe",
+  "unripe": "unripe",
+  "unknown": "unknown"
+}

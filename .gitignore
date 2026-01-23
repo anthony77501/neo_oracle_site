@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+.env
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Modèles et gros fichiers (à NE PAS mettre sur GitHub)
+backend/app/model/
+backend/model/
+*.pt
+*.pth
+*.onnx
+*.torchscript
+
+# Logs
+*.log

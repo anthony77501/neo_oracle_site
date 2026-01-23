@@ -1,0 +1,99 @@
+:root {
+  --bg: #09090b;
+  --fg: #fafafa;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+/* tailwind plugins used in the TSX (line-clamp, typography, animate) */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Minimal prose styles ("prose prose-invert" approximation) */
+.prose {
+  line-height: 1.75;
+}
+
+.prose p {
+  margin: 0;
+}
+
+.prose p + p {
+  margin-top: 1.25rem;
+}
+
+/* Animation utilities (approx of tailwindcss-animate) */
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.fill-mode-both {
+  animation-fill-mode: both;
+}
+
+.fade-in.slide-in-from-bottom-4 {
+  animation-name: neoFadeInUp;
+}
+
+.fade-in.zoom-in {
+  animation-name: neoFadeInZoom;
+}
+
+/* Provide sensible defaults if duration-* classes are present */
+.duration-700 {
+  animation-duration: 700ms;
+}
+
+.duration-300 {
+  animation-duration: 300ms;
+}
+
+@keyframes neoFadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes neoFadeInZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

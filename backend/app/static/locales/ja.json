@@ -1,0 +1,21 @@
+{
+  "title": "トウモロコシの検出 (YOLO)",
+  "detector_loaded": "検出器：読み込み済み",
+  "detector_absent": "検出器：未配置",
+
+  "drop_hint": "画像をここにドラッグ＆ドロップ、または",
+  "choose_file": "ファイルを選択",
+  "formats": "JPEG / PNG / WebP — 最大 30 MB",
+
+  "threshold": "検出しきい値",
+  "analyze": "解析",
+  "reset": "リセット",
+
+  "result": "結果",
+  "none_found": "現在のしきい値では検出されませんでした。",
+
+  "det": "det",
+  "ripe": "成熟",
+  "unripe": "未成熟",
+  "unknown": "不明"
+}

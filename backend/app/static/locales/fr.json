@@ -1,0 +1,21 @@
+{
+  "title": "Détection d'épis de maïs (YOLO)",
+  "detector_loaded": "Détecteur : chargé",
+  "detector_absent": "Détecteur : absent",
+
+  "drop_hint": "Glissez-déposez une image ici, ou",
+  "choose_file": "choisir un fichier",
+  "formats": "JPEG / PNG / WebP — max 30 Mo",
+
+  "threshold": "Seuil détection",
+  "analyze": "Analyser",
+  "reset": "Réinitialiser",
+
+  "result": "Résultat",
+  "none_found": "Aucun épi détecté au seuil actuel.",
+
+  "det": "det",
+  "ripe": "mûr",
+  "unripe": "non mûr",
+  "unknown": "inconnu"
+}
