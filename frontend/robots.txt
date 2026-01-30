@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /predict
+Disallow: /health
+
+Sitemap: https://neooraclerobotics.com/sitemap.xml

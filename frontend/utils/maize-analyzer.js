@@ -1,18 +1,27 @@
 // ========================================
 // utils/maize-analyzer.js
 // ========================================
-function getMaizeApiBase() {
-  try {
-    const url = new URL(window.location.href);
-    const q = url.searchParams.get('maize_api');
-    if (q && q.trim()) return q.trim();
-  } catch (_) {
-    // ignore
-  }
-  const stored = localStorage.getItem('MAIZE_API_BASE');
-  if (stored && stored.trim()) return stored.trim();
-  return 'http://127.0.0.1:8000';
+export function getMaizeApiBase() {
+  // 1) Priorité: query string ?maize_api=...
+  const qs = new URLSearchParams(window.location.search);
+  const qp = qs.get('maize_api');
+  if (qp && qp.trim()) return qp.trim().replace(/\/+$/, '');
+
+  // 2) Priorité: localStorage
+  const stored = localStorage.getItem('maize_api_base');
+  if (stored && stored.trim()) return stored.trim().replace(/\/+$/, '');
+
+  // 3) Par défaut:
+  // - En local (frontend servi sur localhost), on pointe vers le backend local.
+  // - En production (domaine), on utilise la même origine (pas de Cross-Origin Resource Sharing).
+  const host = window.location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') return 'http://127.0.0.1:8000';
+
+  return ''; // => fetch("/predict") et fetch("/health")
 }
+
+
+
 
 export function renderMaizeAnalyzerSection() {
   return `
