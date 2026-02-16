@@ -23,3 +23,7 @@ backend/model/
 
 # Logs
 *.log
+
+# Runtime / local caches
+backend/.yolo/
+**/.yolo/
