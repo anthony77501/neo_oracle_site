@@ -1,6 +1,6 @@
 // ========================================
 // pages/projects.js
-// Liste des projets et page de détail d'un projet
+// Liste et détail des projets (AVEC TABLEAU)
 // ========================================
 
 import { escapeHtml, icon } from '../utils/helpers.js';
@@ -107,7 +107,109 @@ export function renderProjectPage(project) {
     `
     : '';
 
+  // ========================================
+  // NOUVEAU : Tableau de Comparaison des Méthodes
+  // ========================================
+  const comparisonTable = isMaize
+    ? `
+      <div class="pt-10 border-t border-zinc-800">
+        <div class="space-y-4 mb-6">
+          <h3 class="text-xs uppercase tracking-widest text-zinc-500 font-bold">Model Comparison</h3>
+          <p class="text-sm text-zinc-400">
+            Performance evaluation of different classification approaches on the maize maturity dataset (60 test samples).
+          </p>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl border border-white/10">
+          <table class="w-full text-sm">
+            <thead class="bg-white/5 text-zinc-200">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold whitespace-nowrap">Method</th>
+                <th class="px-4 py-3 text-left font-semibold whitespace-nowrap">Training Regime</th>
+                <th class="px-4 py-3 text-left font-semibold whitespace-nowrap">Test Accuracy</th>
+                <th class="px-4 py-3 text-left font-semibold whitespace-nowrap">Macro F1</th>
+                <th class="px-4 py-3 text-left font-semibold whitespace-nowrap">Confusion Matrix</th>
+                <th class="px-4 py-3 text-left font-semibold">Notes</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/10 bg-black/10">
+              <!-- MobileNetV3 -->
+              <tr class="hover:bg-white/5 transition-colors">
+                <td class="px-4 py-4 font-mono text-xs text-red-400">MobileNetV3</td>
+                <td class="px-4 py-4">Supervised fine-tune</td>
+                <td class="px-4 py-4 font-bold text-white">0.8333</td>
+                <td class="px-4 py-4 font-bold text-white">0.8331</td>
+                <td class="px-4 py-4">
+                  <div class="font-mono text-xs text-zinc-300">
+                    [[24, 6],<br/>[4, 26]]
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-zinc-400">Strong baseline; good balance.</td>
+              </tr>
+
+              <!-- CLIP Zero-shot -->
+              <tr class="hover:bg-white/5 transition-colors">
+                <td class="px-4 py-4 font-mono text-xs text-red-400">CLIP ViT-B/32</td>
+                <td class="px-4 py-4">Zero-shot (100-prompt sweep)</td>
+                <td class="px-4 py-4">0.6000</td>
+                <td class="px-4 py-4">0.5694</td>
+                <td class="px-4 py-4">
+                  <div class="font-mono text-xs text-zinc-300">
+                    [[10, 20],<br/>[4, 26]]
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-zinc-400">High recall for unripe, poor recall for ripe.</td>
+              </tr>
+
+              <!-- CLIP Few-shot -->
+              <tr class="hover:bg-white/5 transition-colors">
+                <td class="px-4 py-4 font-mono text-xs text-red-400">CLIP ViT-B/32</td>
+                <td class="px-4 py-4">Linear probe (few-shot)</td>
+                <td class="px-4 py-4">0.8500 ± 0.0601</td>
+                <td class="px-4 py-4">0.8488 ± 0.0617</td>
+                <td class="px-4 py-4 text-zinc-400 text-xs">(varies by seed)</td>
+                <td class="px-4 py-4 text-zinc-400">Shows data-efficiency + variance (16-shot).</td>
+              </tr>
+
+              <!-- CLIP Full train - BEST -->
+              <tr class="hover:bg-white/5 transition-colors border-l-2 border-green-500">
+                <td class="px-4 py-4 font-mono text-xs text-green-400">CLIP ViT-B/32</td>
+                <td class="px-4 py-4">
+                  Linear probe (full train)
+                  <span class="ml-2 px-2 py-0.5 bg-green-500/10 text-green-400 text-[10px] font-bold uppercase rounded">Best</span>
+                </td>
+                <td class="px-4 py-4 font-bold text-green-400">0.9167</td>
+                <td class="px-4 py-4 font-bold text-green-400">0.9166</td>
+                <td class="px-4 py-4">
+                  <div class="font-mono text-xs text-green-400">
+                    [[27, 3],<br/>[2, 28]]
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-zinc-400">
+                  <span class="font-semibold text-green-400">Best overall</span>: 55/60 correct.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Légende Confusion Matrix -->
+        <div class="mt-4 p-4 glass rounded-xl border border-white/10">
+          <div class="flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full bg-zinc-500 shrink-0 mt-2"></div>
+            <div class="text-xs text-zinc-400">
+              <span class="font-semibold text-zinc-300">Confusion Matrix format:</span> 
+              Rows = True labels (ripe, unripe), Columns = Predicted labels. 
+              Example: [[27, 3], [2, 28]] means 27 ripe correctly classified, 3 ripe misclassified as unripe.
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+    : '';
+
   const analyzer = isMaize ? renderMaizeAnalyzerSection() : '';
+
   const launchAction = isMaize ? 'scrollMaizeAnalyzer' : 'noop';
 
   return `
@@ -172,6 +274,7 @@ export function renderProjectPage(project) {
       </div>
 
       ${pipeline}
+      ${comparisonTable}
       ${analyzer}
     </div>
   `;
